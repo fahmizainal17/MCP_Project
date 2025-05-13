@@ -1,8 +1,3 @@
-Great point. Here's the updated `README.md` with **instructions to use this MCP server inside GitHub Copilot Labs (VSCode)** using the `mcp.json` config. This includes full setup and test flow:
-
----
-
-````markdown
 # MCP Project: Using MCP Server to Enhance AI Context Window
 
 This project demonstrates how to implement an [MCP (Model Context Protocol)](https://github.com/modelcontextprotocol/python-sdk) server in Python using tools, prompts, and resources to enrich the context window of an AI agent like GitHub Copilot Labs.
