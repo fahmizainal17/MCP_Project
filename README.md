@@ -1,30 +1,37 @@
-# MCP Project: Using MCP Server for Context Window Enhancement
+Great point. Here's the updated `README.md` with **instructions to use this MCP server inside GitHub Copilot Labs (VSCode)** using the `mcp.json` config. This includes full setup and test flow:
 
-This project demonstrates how to build and run an MCP (Model Context Protocol) server with tools, prompts, and resources to enhance the context window of an AI agent.
+---
 
-## 🧠 What is this project?
+````markdown
+# MCP Project: Using MCP Server to Enhance AI Context Window
 
-This is a minimal working example of how to implement an MCP server using [FastMCP](https://github.com/modelcontextprotocol/python-sdk). It provides:
-- ✅ Tools (APIs that can be called by the AI agent)
-- ✅ Resources (structured retrievable memory)
-- ✅ Prompts (templates that condition the behavior of the agent)
+This project demonstrates how to implement an [MCP (Model Context Protocol)](https://github.com/modelcontextprotocol/python-sdk) server in Python using tools, prompts, and resources to enrich the context window of an AI agent like GitHub Copilot Labs.
 
-It is designed to work with MCP-compatible agents to allow advanced interaction and better control over task execution.
+---
+
+## 🧠 What Is This?
+
+A fully working MCP backend that:
+- ✅ Exposes **tools** (live API functions)
+- ✅ Serves **resources** (structured memory like user profiles)
+- ✅ Provides **prompts** (templates to shape agent behavior)
+
+Designed to integrate directly with **GitHub Copilot Labs** or **any MCP-compatible client**.
 
 ---
 
 ## 🔁 Workflow Overview
 
-1. `server.py` loads the MCP tools, prompts, and resources.
-2. The AI agent (such as one in VSCode or a CLI tool) connects to the running MCP server.
-3. The agent queries tools (e.g. for sentiment analysis), pulls in resources (e.g. user profiles), or injects prompt templates to control behavior.
-4. Responses are returned in real time, improving how much context the agent can handle effectively.
+1. Define your tools, prompts, and resources in `server.py`.
+2. Start the MCP server.
+3. Launch VSCode with Copilot Labs and connect to your server using `mcp.json`.
+4. Use tools/resources/prompts right inside your chat agent.
 
 ---
 
 ## 🛠️ Tools
 
-Tools are live APIs callable by the AI agent. They allow integration of logic into the AI context.
+Tools are dynamic APIs that can be called from within the agent.
 
 ![Example Tool](image/example-tool.png)
 
@@ -32,7 +39,7 @@ Tools are live APIs callable by the AI agent. They allow integration of logic in
 
 ## 📦 Resources
 
-Resources are structured memory endpoints, like a profile store or cached documents.
+Resources provide context like profiles, docs, knowledge snippets.
 
 ![Example Resource](image/example-resource.png)
 
@@ -40,49 +47,98 @@ Resources are structured memory endpoints, like a profile store or cached docume
 
 ## ✨ Prompts
 
-Prompts define the template or style of a specific instruction.
+Prompts are templates used by the agent to condition its behavior.
 
 ![Example Prompt](image/example-prompt.png)
 
 ---
 
-## 🚀 How to Run
+## 🚀 Setup & Running
 
-1. Make sure Python 3.10+ is installed.
-2. (Optional) Create a virtual environment:
+### 1. Clone and install dependencies
 
 ```bash
+git clone https://github.com/YOUR_USERNAME/MCP_Project.git
+cd MCP_Project
 python3 -m venv venv_fahmi
 source venv_fahmi/bin/activate
-````
-
-3. Install required dependencies:
-
-```bash
 pip install mcp textblob requests
 python -m textblob.download_corpora
-```
+````
 
-4. Run the MCP server:
+### 2. Run your MCP server
 
 ```bash
 python server.py
 ```
 
-The MCP server will start and be available for connections from MCP-compatible tools like VSCode’s Copilot Labs or custom agents.
+You should see a message like:
+
+```
+MCP server is running at http://127.0.0.1:6274
+```
 
 ---
 
-## 📁 File Structure
+## 🧪 Testing in GitHub Copilot (VSCode)
+
+### 1. Install [Copilot Labs Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-labs)
+
+### 2. Add an MCP config in VSCode
+
+Create `.vscode/mcp.json` with the following content:
+
+```json
+{
+  "servers": {
+    "my-mcp-server": {
+      "type": "stdio",
+      "command": "python3",
+      "args": [
+        "/Users/your_username/Desktop/MCP_Workspace/MCP_Project/server.py"
+      ]
+    }
+  }
+}
+```
+
+> ✅ Make sure the path is correct to your `server.py`.
+
+### 3. Start MCP Server
+
+From terminal:
+
+```bash
+source venv_fahmi/bin/activate
+python server.py
+```
+
+> You should see logs confirming the server is active.
+
+---
+
+## 🧠 Example Use Cases
+
+* Ask the agent:
+  *“Use the `sentiment_analysis_api` tool to check if the text ‘I’m so excited to code’ is positive.”*
+
+* Or test the job board fetch:
+  *“Use the `access_job_board_api` to get the latest jobs.”*
+
+---
+
+## 📁 Project Structure
 
 ```
-MCP_WORKSPACE/
+MCP_Workspace/
 ├── MCP_Project/
 │   ├── image/
 │   │   ├── example-tool.png
 │   │   ├── example-resource.png
 │   │   └── example-prompt.png
 │   ├── server.py
+├── .vscode/
+│   └── mcp.json
 ├── venv_fahmi/
 └── README.md
 ```
@@ -92,5 +148,6 @@ MCP_WORKSPACE/
 ## 🔗 References
 
 * [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
-* [Intro to MCP](https://www.youtube.com/watch?v=MjfaTE3apao)
+* [MCP Intro Video](https://www.youtube.com/watch?v=MjfaTE3apao)
+
 
