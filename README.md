@@ -13,6 +13,11 @@ A fully working MCP backend that:
 
 Designed to integrate directly with **GitHub Copilot Labs** or **any MCP-compatible client**.
 
+## What you have to know
+
+This figure is a simplified version of the MCP architecture.
+
+![Example Tool](image/mcp_architecture.png)
 ---
 
 ## 🔁 Workflow Overview
